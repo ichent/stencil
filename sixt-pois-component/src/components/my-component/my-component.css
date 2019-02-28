@@ -1,0 +1,25 @@
+.container {
+    width: 100%;
+    padding: 20px;
+}
+
+.form-group {
+    float: left;
+    margin-right: 10px;
+}
+
+.form-group.form-time {
+    float: none;
+}
+
+.form-group.form-button {
+    margin-top: 10px;
+}
+
+.form-location .form-location_loading {
+    position: absolute;
+    background: white;
+    padding: 5px;
+    border: 1px solid grey;
+    margin-top: 2px;
+}
