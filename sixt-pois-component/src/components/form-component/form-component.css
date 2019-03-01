@@ -14,3 +14,8 @@
 .form-group.form-button {
   margin-top: 10px;
 }
+
+.error-message {
+  color: red;
+  margin-top: 15px;
+}

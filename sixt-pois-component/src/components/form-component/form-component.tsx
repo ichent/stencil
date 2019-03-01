@@ -1,6 +1,6 @@
 import { Component, Listen, EventEmitter, Event, State } from '@stencil/core';
 import { Poi, SearchParams } from '../../interfaces';
-import { fetchOffers, formatStartDate } from '../../utils/utils';
+import { fetchOffers, formatStartDate, getThreeDaysAheadDateTime } from '../../utils/utils';
 
 @Component({
   tag: 'form-component',
@@ -10,7 +10,7 @@ import { fetchOffers, formatStartDate } from '../../utils/utils';
 export class FormComponent {
   searchParams: SearchParams;
   
-  @State() isDateTimeFieldInvalid: boolean; 
+  @State() errorMessage: string;
   @Event() foundCars: EventEmitter;
 
   componentDidLoad() {
@@ -20,7 +20,6 @@ export class FormComponent {
       duration: '',
       type: 'DURATION'
     };
-    this.isDateTimeFieldInvalid = false;
   }
 
   @Listen('poiSelected')
@@ -31,6 +30,8 @@ export class FormComponent {
   }
 
   handleSearchCars() {
+    this.showMessageError('');
+
     if (this.isSearchParamsValid()) {
       this.searchParams.selectedStartDate = formatStartDate(this.searchParams.selectedStartDate);
 
@@ -45,8 +46,23 @@ export class FormComponent {
   isSearchParamsValid() {
     let regex = /^[\d]{4}-[\d]{2}-[\d]{2}[\s]{1}[\d]{2}:[\d]{2}$/;
 
+    if (!this.searchParams.originPlaceId) {
+      this.showMessageError('Please, fill and select the field "Location"');
+      return false;
+    }
+
     if (this.searchParams.selectedStartDate.match(regex) === null) {
-      this.isDateTimeFieldInvalid = true;
+      this.showMessageError('Please, fill and select the field "DateTime"');
+      return false;
+    }
+
+    if (this.searchParams.selectedStartDate.match(regex) === null) {
+      this.showMessageError('The field "DateTime" has invalid format');
+      return false;
+    }
+
+    if (!this.searchParams.duration) {
+      this.showMessageError('Please, fill the field "Duration"');
       return false;
     }
 
@@ -65,32 +81,35 @@ export class FormComponent {
     let val : string = e.target.value;
 
     if (val) {
-      this.isDateTimeFieldInvalid = false;
       this.searchParams.selectedStartDate = val;
     }
   }
 
-  getDateTimeFieldClassName() {
-    let errorClassName = this.isDateTimeFieldInvalid ? 'error' : '';
-
-    return `form-group form-date-time ${errorClassName}`;
+  showMessageError(message: string) {
+    this.errorMessage = message;
   }
 
   render() {
     return (      
       <form>
         <location-component></location-component>
-        <div class={this.getDateTimeFieldClassName()}>
+        <div class="form-group form-date-time">
           <div>DateTime</div>
-          <input type="text" name="dateTime" onInput={(e) => this.handleChangeDateTime(e)}/>
+          <input required type="text" name="dateTime" onInput={(e) => this.handleChangeDateTime(e)} placeholder={getThreeDaysAheadDateTime()}/>
         </div>
         <div class="form-group form-duration">
           <div>Duration</div>
-          <input type="number" min="2" max="4" name="duration" onInput={(e) => this.handleChangeDuration(e)}/>
+          <input required type="number" min="2" max="4" name="duration" onInput={(e) => this.handleChangeDuration(e)}/>
         </div>
         <div class="form-group form-button">
           <input type="button" name="search" value="Search" onClick={() => this.handleSearchCars()}/>
         </div>
+        {this.errorMessage
+          ? <div>
+              <div class="error-message">{this.errorMessage}</div>
+            </div>
+          : null
+        }        
       </form>
     );
   }

@@ -56,3 +56,12 @@ export function formatAddress(poi: Poi, locale: string) {
   
   return `${address.label} - ${address.address}`;
 }
+
+export function getThreeDaysAheadDateTime() {
+  let dateTomorrow = new Date(Date.now() + 1000*60*60*24);
+  let addLeadZero = (i: number) => {
+    return i.toString().length === 1 ? `0${i}` : i.toString();
+  };
+
+  return `${dateTomorrow.getFullYear()}-${addLeadZero(dateTomorrow.getMonth() + 1)}-${addLeadZero(dateTomorrow.getDate() + 1)} ${addLeadZero(dateTomorrow.getHours())}:00`;
+}
