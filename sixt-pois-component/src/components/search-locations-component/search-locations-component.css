@@ -1,0 +1,16 @@
+.search-locations {
+    position: absolute;
+    background: white;
+    padding: 5px;
+    border: 1px solid grey;
+    margin-top: 2px;
+}
+
+.search-locations-item {
+    cursor: pointer;
+    background-color: white;
+}
+
+.search-locations-item:hover {
+    background-color: lightgrey;
+}

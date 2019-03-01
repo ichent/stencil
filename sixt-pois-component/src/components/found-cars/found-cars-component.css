@@ -1,0 +1,14 @@
+
+.cars {
+  margin-top: 50px;
+}
+
+.cars-image {
+  width: 231px;
+  height: 162px;
+  float: left;
+}
+
+.cars-item {
+  height: 170px;    
+}

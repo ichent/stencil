@@ -8,36 +8,103 @@
 import '@stencil/core';
 
 
+import {
+  Car,
+  Poi,
+} from './interfaces';
 
 
 export namespace Components {
 
-  interface MyComponent {}
-  interface MyComponentAttributes extends StencilHTMLAttributes {}
+  interface FormComponent {}
+  interface FormComponentAttributes extends StencilHTMLAttributes {
+    'onFoundCars'?: (event: CustomEvent) => void;
+  }
+
+  interface FoundCarsComponent {
+    'items': Car[];
+  }
+  interface FoundCarsComponentAttributes extends StencilHTMLAttributes {
+    'items'?: Car[];
+  }
+
+  interface LocationComponent {}
+  interface LocationComponentAttributes extends StencilHTMLAttributes {}
+
+  interface MainComponent {}
+  interface MainComponentAttributes extends StencilHTMLAttributes {}
+
+  interface SearchLocationsComponent {
+    'pois': Poi[];
+  }
+  interface SearchLocationsComponentAttributes extends StencilHTMLAttributes {
+    'onPoiSelected'?: (event: CustomEvent) => void;
+    'pois'?: Poi[];
+  }
 }
 
 declare global {
   interface StencilElementInterfaces {
-    'MyComponent': Components.MyComponent;
+    'FormComponent': Components.FormComponent;
+    'FoundCarsComponent': Components.FoundCarsComponent;
+    'LocationComponent': Components.LocationComponent;
+    'MainComponent': Components.MainComponent;
+    'SearchLocationsComponent': Components.SearchLocationsComponent;
   }
 
   interface StencilIntrinsicElements {
-    'my-component': Components.MyComponentAttributes;
+    'form-component': Components.FormComponentAttributes;
+    'found-cars-component': Components.FoundCarsComponentAttributes;
+    'location-component': Components.LocationComponentAttributes;
+    'main-component': Components.MainComponentAttributes;
+    'search-locations-component': Components.SearchLocationsComponentAttributes;
   }
 
 
-  interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {}
-  var HTMLMyComponentElement: {
-    prototype: HTMLMyComponentElement;
-    new (): HTMLMyComponentElement;
+  interface HTMLFormComponentElement extends Components.FormComponent, HTMLStencilElement {}
+  var HTMLFormComponentElement: {
+    prototype: HTMLFormComponentElement;
+    new (): HTMLFormComponentElement;
+  };
+
+  interface HTMLFoundCarsComponentElement extends Components.FoundCarsComponent, HTMLStencilElement {}
+  var HTMLFoundCarsComponentElement: {
+    prototype: HTMLFoundCarsComponentElement;
+    new (): HTMLFoundCarsComponentElement;
+  };
+
+  interface HTMLLocationComponentElement extends Components.LocationComponent, HTMLStencilElement {}
+  var HTMLLocationComponentElement: {
+    prototype: HTMLLocationComponentElement;
+    new (): HTMLLocationComponentElement;
+  };
+
+  interface HTMLMainComponentElement extends Components.MainComponent, HTMLStencilElement {}
+  var HTMLMainComponentElement: {
+    prototype: HTMLMainComponentElement;
+    new (): HTMLMainComponentElement;
+  };
+
+  interface HTMLSearchLocationsComponentElement extends Components.SearchLocationsComponent, HTMLStencilElement {}
+  var HTMLSearchLocationsComponentElement: {
+    prototype: HTMLSearchLocationsComponentElement;
+    new (): HTMLSearchLocationsComponentElement;
   };
 
   interface HTMLElementTagNameMap {
-    'my-component': HTMLMyComponentElement
+    'form-component': HTMLFormComponentElement
+    'found-cars-component': HTMLFoundCarsComponentElement
+    'location-component': HTMLLocationComponentElement
+    'main-component': HTMLMainComponentElement
+    'search-locations-component': HTMLSearchLocationsComponentElement
   }
 
   interface ElementTagNameMap {
-    'my-component': HTMLMyComponentElement;
+    'form-component': HTMLFormComponentElement;
+    'found-cars-component': HTMLFoundCarsComponentElement;
+    'location-component': HTMLLocationComponentElement;
+    'main-component': HTMLMainComponentElement;
+    'search-locations-component': HTMLSearchLocationsComponentElement;
   }
 
 

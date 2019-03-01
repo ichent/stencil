@@ -1,0 +1,16 @@
+.form-group {
+  float: left;
+  margin-right: 10px;
+}
+
+.form-group.form-duration {
+  float: none;
+}
+
+.form-group.form-date-time.error input {
+  border: 2px solid red;
+}
+
+.form-group.form-button {
+  margin-top: 10px;
+}
